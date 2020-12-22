@@ -16,3 +16,4 @@
 /target
 Cargo.lock
 target
+vender/bundle
