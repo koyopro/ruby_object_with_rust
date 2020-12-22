@@ -11,6 +11,10 @@ module RubyObjectWithRust
       super(RubyObjectWithRust.create_user(id))
     end
 
+    def id
+      RubyObjectWithRust.get_id(self)
+    end
+
     def name=(new_value)
       RubyObjectWithRust.set_name(self, new_value)
     end

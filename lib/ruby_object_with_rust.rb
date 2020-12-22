@@ -11,6 +11,7 @@ module RubyObjectWithRust
   class Error < StandardError; end
 
   attach_function :create_user, :create_user, [:int], :pointer
+  attach_function :get_id, [User], :int
   attach_function :set_name, [User, :string], :void
   attach_function :get_display, [User], :string
   attach_function :rust_free, [:pointer], :void

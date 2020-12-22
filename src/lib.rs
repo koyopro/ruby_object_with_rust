@@ -9,6 +9,12 @@ pub unsafe extern "C" fn create_user(id: u64) -> *mut User {
 }
 
 #[no_mangle]
+pub unsafe extern "C" fn get_id(user: *mut User) -> u64 {
+    let u: &mut User = &mut *user;
+    u.id
+}
+
+#[no_mangle]
 pub unsafe extern "C" fn set_name(user: *mut User, name: *const c_char) {
     let u: &mut User = &mut *user;
     u.name = CStr::from_ptr(name).to_str().unwrap().to_string();
@@ -35,6 +41,7 @@ mod tests {
     fn test_create_user() {
         unsafe {
             let u = create_user(3);
+            assert_eq!(get_id(u), 3);
             assert_eq!(CStr::from_ptr(get_display(u)).to_str().unwrap(), "id: 3, name: ");
             set_name(u, CString::new("fuga").unwrap().into_raw());
             assert_eq!(CStr::from_ptr(get_display(u)).to_str().unwrap(), "id: 3, name: fuga");
