@@ -20,7 +20,9 @@ module RubyObjectWithRust
     end
 
     def display
-      RubyObjectWithRust.get_display(self)
+      result, ptr = RubyObjectWithRust.get_display(self)
+      RubyObjectWithRust::AutoPointer.new(ptr)
+      result
     end
 
     def self.release(ptr)
