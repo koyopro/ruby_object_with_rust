@@ -3,7 +3,13 @@ RSpec.describe RubyObjectWithRust do
     expect(RubyObjectWithRust::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  describe '.create_user' do
+    it do
+      u = RubyObjectWithRust.create_user(2)
+      RubyObjectWithRust.set_name(u, 'piyo')
+      display = RubyObjectWithRust.get_display(u)
+      expect(display).to eq('id: 2, name: piyo')
+      RubyObjectWithRust.rust_free(u)
+    end
   end
 end
