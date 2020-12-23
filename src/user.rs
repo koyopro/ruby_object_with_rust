@@ -4,13 +4,6 @@ pub struct User {
 }
 
 impl User {
-    pub fn new(id: u64) -> User {
-        User {
-            id,
-            name: "".to_string(),
-        }
-    }
-
     pub fn get_display(&self) -> String {
         format!("id: {}, name: {}", self.id, self.name)
     }

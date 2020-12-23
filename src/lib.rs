@@ -5,7 +5,10 @@ use user::User;
 
 #[no_mangle]
 pub unsafe extern "C" fn create_user(id: u64) -> *mut User {
-    return Box::into_raw(Box::new(User::new(id)));
+    return Box::into_raw(Box::new(User {
+        id,
+        name: String::new(),
+    }));
 }
 
 #[no_mangle]
@@ -42,9 +45,15 @@ mod tests {
         unsafe {
             let u = create_user(3);
             assert_eq!(get_id(u), 3);
-            assert_eq!(CStr::from_ptr(get_display(u)).to_str().unwrap(), "id: 3, name: ");
+            assert_eq!(
+                CStr::from_ptr(get_display(u)).to_str().unwrap(),
+                "id: 3, name: "
+            );
             set_name(u, CString::new("fuga").unwrap().into_raw());
-            assert_eq!(CStr::from_ptr(get_display(u)).to_str().unwrap(), "id: 3, name: fuga");
+            assert_eq!(
+                CStr::from_ptr(get_display(u)).to_str().unwrap(),
+                "id: 3, name: fuga"
+            );
             release(u as *mut libc::c_void);
         }
     }
