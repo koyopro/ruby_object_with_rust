@@ -26,7 +26,7 @@ module RubyObjectWithRust
     end
 
     def self.release(ptr)
-      RubyObjectWithRust.rust_free(ptr)
+      RubyObjectWithRust.release(ptr)
     end
   end
 end

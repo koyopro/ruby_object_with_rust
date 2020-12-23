@@ -28,7 +28,7 @@ pub unsafe extern "C" fn get_display(user: *mut User) -> *const c_char {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn rust_free(c_ptr: *mut libc::c_void) {
+pub unsafe extern "C" fn release(c_ptr: *mut libc::c_void) {
     libc::free(c_ptr);
 }
 
@@ -45,7 +45,7 @@ mod tests {
             assert_eq!(CStr::from_ptr(get_display(u)).to_str().unwrap(), "id: 3, name: ");
             set_name(u, CString::new("fuga").unwrap().into_raw());
             assert_eq!(CStr::from_ptr(get_display(u)).to_str().unwrap(), "id: 3, name: fuga");
-            rust_free(u as *mut libc::c_void);
+            release(u as *mut libc::c_void);
         }
     }
 }

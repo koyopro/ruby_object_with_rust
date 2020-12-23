@@ -10,7 +10,7 @@ module RubyObjectWithRust
 
   class AutoPointer < FFI::AutoPointer
     def self.release(ptr)
-      RubyObjectWithRust.rust_free(ptr)
+      RubyObjectWithRust.release(ptr)
     end
   end
 
@@ -20,5 +20,5 @@ module RubyObjectWithRust
   attach_function :get_id, [User], :int
   attach_function :set_name, [User, :string], :void
   attach_function :get_display, [User], :strptr
-  attach_function :rust_free, [:pointer], :void
+  attach_function :release, [:pointer], :void
 end
