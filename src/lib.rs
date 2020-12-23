@@ -5,13 +5,13 @@ use user::User;
 
 #[no_mangle]
 pub unsafe extern "C" fn create_user(id: u64) -> *mut User {
-    Box::into_raw(Box::new(User::new(id)))
+    return Box::into_raw(Box::new(User::new(id)));
 }
 
 #[no_mangle]
 pub unsafe extern "C" fn get_id(user: *mut User) -> u64 {
     let u: &mut User = &mut *user;
-    u.id
+    return u.id;
 }
 
 #[no_mangle]
@@ -24,7 +24,7 @@ pub unsafe extern "C" fn set_name(user: *mut User, name: *const c_char) {
 pub unsafe extern "C" fn get_display(user: *mut User) -> *const c_char {
     let u: &mut User = &mut *user;
     let display = u.get_display();
-    CString::new(display).unwrap().into_raw()
+    return CString::new(display).unwrap().into_raw();
 }
 
 #[no_mangle]
